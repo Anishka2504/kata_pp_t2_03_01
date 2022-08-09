@@ -5,14 +5,11 @@ import edu.kata.task231.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
-public class UserManageControllerImpl {
+public class UserManageController {
 
     @Autowired
     private UserService userService;
@@ -39,9 +36,9 @@ public class UserManageControllerImpl {
     }
 
     // обновление
-    @PostMapping("/update")
+    @PutMapping("/update")
     public String update(User user) {
-        userService.save(user);
+        userService.update(user);
         return "redirect:/index";
     }
 

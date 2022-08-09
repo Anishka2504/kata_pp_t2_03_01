@@ -1,40 +1,21 @@
 package edu.kata.task231.repository;
 
 import edu.kata.task231.model.User;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Component
-public class UserRepository {
+@Repository
+public interface UserRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    User findOne(Long id);
 
-    public User findOne(Long id) {
-        return (User) entityManager
-                .createQuery("SELECT usr FROM User usr WHERE usr.id = ?1")
-                .setParameter(1, id)
-                .getSingleResult();
-    }
+    List<User> findAll();
 
-    public List<User> findAll() {
-        return entityManager.createQuery("SELECT usr FROM User usr").getResultList();
-    }
+    User update(User user);
 
-    public User save(User user) {
-        entityManager.getTransaction().begin();
-        user = entityManager.merge(user);
-        entityManager.getTransaction().commit();
-        return user;
-    }
+    User save(User user);
 
-    public void remove(Long id) {
-        entityManager.getTransaction().begin();
-        User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
-        entityManager.getTransaction().commit();
-    }
+    void remove(Long id);
 }

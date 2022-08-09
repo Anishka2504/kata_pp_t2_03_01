@@ -4,10 +4,12 @@ import edu.kata.task231.model.User;
 import edu.kata.task231.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -19,6 +21,10 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public User update(User user) {
+        return userRepository.update(user);
     }
 
     public User save(User user) {
